@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Financial Trivia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>💰 RAGiFinance Challenge 💰</h1>
+            <p class="tagline">Test your financial knowledge and climb the leaderboard!</p>
+        </header>
+
+        <!-- Home Screen -->
+        <div class="screen" id="home-screen">
+            <div class="educational-resources">
+                <div class="resource-info">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Educational Resources</h3>
+                    <p>This financial trivia game is powered by advanced AI technology and educational resources:</p>
+                    <ul>
+                        <li><i class="fas fa-brain"></i> Questions and answers are generated using fine-tuned LLaMA models</li>
+                        <li><i class="fas fa-book"></i> Content is based on FDIC (Federal Deposit Insurance Corporation) educational materials</li>
+                        <li><i class="fas fa-robot"></i> RAG (Retrieval-Augmented Generation) technology ensures accurate and relevant content</li>
+                    </ul>
+                    <div class="fdic-link">
+                        <a href="https://www.fdic.gov/consumer-resource-center/money-smart-young-adults" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-external-link-alt"></i> Learn more at FDIC Money Smart for Young Adults
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Welcome to Financial Trivia!</h2>
+                <p>Learn about personal finance while having fun!</p>
+                <button class="start-btn" id="start-quiz">Start Quiz</button>
+                <button class="secondary-btn" id="view-leaderboard">View Leaderboard</button>
+            </div>
+        </div>
+
+        <!-- Step 1: Enter ID Screen -->
+        <div class="screen hidden" id="id-screen">
+            <div class="card">
+                <h2>Enter Your Unique ID</h2>
+                <p>We'll use this to track your score on the leaderboard</p>
+                <div class="form-group">
+                    <input type="text" id="user-id" placeholder="Your ID" required>
+                </div>
+                <button class="primary-btn" id="submit-id">Continue</button>
+                <button class="back-btn" data-target="home-screen">Back</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Category Selection Screen -->
+        <div class="screen hidden" id="category-screen">
+            <div class="card">
+                <h2>Select a Category</h2>
+                <p>Choose a financial topic to test your knowledge</p>
+                <div class="categories">
+                    <div class="category-card" data-category="borrowing">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <h3>Borrowing</h3>
+                        <p>Learn about loans, interest rates, and responsible borrowing</p>
+                    </div>
+                    <div class="category-card" data-category="buy_car">
+                        <i class="fas fa-car"></i>
+                        <h3>Buying a Car</h3>
+                        <p>Understand car financing, insurance, and maintenance costs</p>
+                    </div>
+                    <div class="category-card" data-category="credit">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Credit</h3>
+                        <p>Master credit cards, credit scores, and credit reports</p>
+                    </div>
+                    <div class="category-card" data-category="financial_decision">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Financial Decisions</h3>
+                        <p>Learn to make smart choices with your money</p>
+                    </div>
+                    <div class="category-card" data-category="financial_institution">
+                        <i class="fas fa-university"></i>
+                        <h3>Financial Institutions</h3>
+                        <p>Understand banks, credit unions, and other financial services</p>
+                    </div>
+                    <div class="category-card" data-category="income">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h3>Income</h3>
+                        <p>Learn about salaries, taxes, and managing your earnings</p>
+                    </div>
+                    <div class="category-card" data-category="living_on_your_own">
+                        <i class="fas fa-home"></i>
+                        <h3>Living on Your Own</h3>
+                        <p>Budgeting for rent, utilities, and independent living</p>
+                    </div>
+                    <div class="category-card" data-category="saving_plan">
+                        <i class="fas fa-piggy-bank"></i>
+                        <h3>Saving Plans</h3>
+                        <p>Create and maintain effective saving strategies</p>
+                    </div>
+                </div>
+                <button class="back-btn" data-target="id-screen">Back</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Quiz Screen -->
+        <div class="screen hidden" id="quiz-screen">
+            <div class="card">
+                <div class="quiz-header">
+                    <h2 id="quiz-category">Category</h2>
+                    <div class="quiz-progress">
+                        <span id="current-question">1</span>/<span id="total-questions">10</span>
+                    </div>
+                </div>
+                <div class="quiz-content">
+                    <h3 id="question-text">Question text will appear here?</h3>
+                    <div class="options-container">
+                        <div class="option" data-option="a">
+                            <span class="option-letter">A</span>
+                            <span class="option-text" id="option-a">Option A</span>
+                        </div>
+                        <div class="option" data-option="b">
+                            <span class="option-letter">B</span>
+                            <span class="option-text" id="option-b">Option B</span>
+                        </div>
+                        <div class="option" data-option="c">
+                            <span class="option-letter">C</span>
+                            <span class="option-text" id="option-c">Option C</span>
+                        </div>
+                        <div class="option" data-option="d">
+                            <span class="option-letter">D</span>
+                            <span class="option-text" id="option-d">Option D</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="screen hidden" id="results-screen">
+            <div class="card">
+                <h2>Quiz Completed!</h2>
+                <div class="results-container">
+                    <div class="score-circle">
+                        <span id="final-score">0</span>/<span id="max-score">10</span>
+                    </div>
+                    <p>Great job! You've completed the quiz.</p>
+                </div>
+                <button class="primary-btn" id="see-leaderboard">See Leaderboard</button>
+                <button class="secondary-btn" id="play-again">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div class="screen hidden" id="leaderboard-screen">
+            <div class="card">
+                <h2>Leaderboard</h2>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        <!-- Leaderboard entries will be inserted here -->
+                    </tbody>
+                </table>
+                <button class="back-btn" data-target="home-screen">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Youth Financial Trivia | Learn. Play. Grow.</p>
+    </footer>
+
+    <script src="quiz-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
